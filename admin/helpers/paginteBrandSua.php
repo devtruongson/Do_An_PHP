@@ -1,6 +1,4 @@
 <?php
-include "../../connect.php";
-
 function paginate($itemsPerPage, $currentPage, $table)
 {
     global $conn;
@@ -28,7 +26,7 @@ function paginate($itemsPerPage, $currentPage, $table)
                     <?php echo $row["Title"] ?>
                 </td>
                 <td focus="true" data-name="Title" class="py-2 px-4 border text-center">
-                    <a href="/WeekSix/admin/uploads/<?php echo $row["thumbnail"] ?>" target="_blank" rel="noopener noreferrer">Xem
+                    <a href="<?php echo $row["thumbnail"] ?>" target="_blank" rel="noopener noreferrer">Xem
                         hình ảnh</a>
                 </td>
                 <td data-name="Address" class="px-4 py-2 border text-center ">

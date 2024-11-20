@@ -1,5 +1,6 @@
 <?php
 include '../connect.php';
+include "./auth/checkAuth.php";
 ?>
 
 <!DOCTYPE html>

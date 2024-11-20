@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop điện tử</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="https://fstack.io.vn/wp-content/uploads/2024/09/cropped-image-192x192.png" sizes="192x192">
 </head>
 
 <body class="bg-gray-100">

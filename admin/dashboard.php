@@ -8,20 +8,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css">
+    <link rel="icon" href="https://fstack.io.vn/wp-content/uploads/2024/09/cropped-image-192x192.png" sizes="192x192">
 </head>
 
 <?php
-session_start();
-if (empty($_SESSION['username'])) {
-    ?>
-    <script>
-        window.location.href = `index.php?code=403`;
-    </script>
-    <?php
+include "./auth/checkAuth.php";
+$routeQuery = "welcome.php";
+if (isset($_GET['route'])) {
+    $route = basename($_GET['route']);
+    if (!file_exists($route)) {
+        $routeQuery = "welcome.php";
+    }
 }
-
 ?>
-
 
 <body class="bg-gray-100">
     <div>
@@ -45,8 +44,7 @@ if (empty($_SESSION['username'])) {
                         </a>
                     </li>
                     <hr>
-                    <li
-                        class="<?= basename($_GET['route']) == 'themHangSua.php' ? 'bg-[#ccc] rounded-lg text-[#fff]' : '' ?>">
+                    <li class="<?= $routeQuery == 'themHangSua.php' ? 'bg-[#ccc] rounded-lg text-[#fff]' : '' ?>">
                         <a href="dashboard.php?route=themHangSua.php"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -57,8 +55,7 @@ if (empty($_SESSION['username'])) {
                             <span class="flex-1 ms-3 whitespace-nowrap">Thêm Brand</span>
                         </a>
                     </li>
-                    <li
-                        class="<?= basename($_GET['route']) == 'listHangSua.php' ? 'bg-[#ccc] rounded-lg text-[#fff]' : '' ?>">
+                    <li class="<?= $routeQuery == 'listHangSua.php' ? 'bg-[#ccc] rounded-lg text-[#fff]' : '' ?>">
                         <a href="dashboard.php?route=listHangSua.php"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -70,8 +67,7 @@ if (empty($_SESSION['username'])) {
                         </a>
                     </li>
                     <hr>
-                    <li
-                        class="<?= basename($_GET['route']) == 'themKhachHang.php' ? 'bg-[#ccc] rounded-lg text-[#fff]' : '' ?>">
+                    <li class="<?= $routeQuery == 'themKhachHang.php' ? 'bg-[#ccc] rounded-lg text-[#fff]' : '' ?>">
                         <a href="dashboard.php?route=themKhachHang.php"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -82,8 +78,7 @@ if (empty($_SESSION['username'])) {
                             <span class="flex-1 ms-3 whitespace-nowrap">Thêm Khách Hàng</span>
                         </a>
                     </li>
-                    <li
-                        class="<?= basename($_GET['route']) == 'listKhachHang.php' ? 'bg-[#ccc] rounded-lg text-[#fff]' : '' ?>">
+                    <li class="<?= $routeQuery == 'listKhachHang.php' ? 'bg-[#ccc] rounded-lg text-[#fff]' : '' ?>">
                         <a href="dashboard.php?route=listKhachHang.php"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -95,8 +90,7 @@ if (empty($_SESSION['username'])) {
                         </a>
                     </li>
                     <hr>
-                    <li
-                        class="<?= basename($_GET['route']) == 'themSua.php' ? 'bg-[#ccc] rounded-lg text-[#fff]' : '' ?>">
+                    <li class="<?= $routeQuery == 'themSua.php' ? 'bg-[#ccc] rounded-lg text-[#fff]' : '' ?>">
                         <a href="dashboard.php?route=themSua.php"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -107,8 +101,7 @@ if (empty($_SESSION['username'])) {
                             <span class="flex-1 ms-3 whitespace-nowrap">Thêm Sản Phẩm</span>
                         </a>
                     </li>
-                    <li
-                        class="<?= basename($_GET['route']) == 'listProduct.php' ? 'bg-[#ccc] rounded-lg text-[#fff]' : '' ?>">
+                    <li class="<?= $routeQuery == 'listProduct.php' ? 'bg-[#ccc] rounded-lg text-[#fff]' : '' ?>">
                         <a href="dashboard.php?route=listProduct.php"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -121,7 +114,7 @@ if (empty($_SESSION['username'])) {
                     </li>
                     <hr>
                     <li>
-                        <a href="dashboard.php?route=logout.php"
+                        <a href="logout.php"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
@@ -139,7 +132,7 @@ if (empty($_SESSION['username'])) {
             <?php
             $defaultFile = "welcome.php";
             if (isset($_GET['route'])) {
-                $route = basename($_GET['route']);
+                $route = $_GET['route'];
                 $filePath = "./" . $route;
                 if (file_exists($filePath)) {
                     include $filePath;

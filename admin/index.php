@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+if (!empty($_SESSION['username'])) {
+    ?>
+    <script>
+        window.location.href = "dashboard.php";
+    </script>
+    <?php
+} ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,6 +19,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css">
+    <link rel="icon" href="https://fstack.io.vn/wp-content/uploads/2024/09/cropped-image-192x192.png" sizes="192x192">
 </head>
 
 <body class="bg-gray-100">
@@ -149,16 +161,6 @@
 </html>
 
 <?php
-session_start();
-
-if (!empty($_SESSION['username'])) {
-    ?>
-    <script>
-        window.location.href = "dashboard.php";
-    </script>
-    <?php
-}
-
 if (!empty($_POST)) {
     include "../connect.php";
 

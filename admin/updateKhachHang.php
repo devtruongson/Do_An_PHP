@@ -1,14 +1,6 @@
 <?php
 include '../connect.php';
-
-session_start();
-if (empty($_SESSION['username'])) {
-    ?>
-    <script>
-        window.location.href = `index.php?code=403`; 
-    </script>
-    <?php
-}
+include "./auth/checkAuth.php";
 
 if (!empty($_POST)) {
     try {

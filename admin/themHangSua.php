@@ -1,13 +1,5 @@
 <?php
-session_start();
-if (empty($_SESSION['username'])) {
-    ?>
-    <script>
-        window.location.href = `index.php?code=403`; 
-    </script>
-    <?php
-}
-
+include "./auth/checkAuth.php";
 ?>
 
 <!DOCTYPE html>
@@ -168,9 +160,9 @@ if (empty($_SESSION['username'])) {
                             body: formData,
                             method: "post",
                         }).then(res => res.text());
-                        inputSendDataThumbnail.setAttribute('value', res);
+                        inputSendDataThumbnail.setAttribute('value', `${window.location.href.split("/admin/")[0]}/admin/uploads/${res}`);
                         divPreviewThumbnail.style.display = "block";
-                        divPreviewThumbnail.style.backgroundImage = `url(http://${window.location.hostname}/WeekSix/admin/uploads/${res})`;
+                        divPreviewThumbnail.style.backgroundImage = `url(${window.location.href.split("/admin/")[0]}/admin/uploads/${res})`;
                     } catch (error) {
                         console.log(error);
                     }

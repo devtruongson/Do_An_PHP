@@ -1,6 +1,4 @@
 <?php
-include "../../connect.php";
-
 function paginate($itemsPerPage, $currentPage, $table)
 {
     global $conn;
@@ -16,6 +14,7 @@ function paginate($itemsPerPage, $currentPage, $table)
     $sql = "SELECT * FROM $table LIMIT $itemsPerPage OFFSET $startPosition";
     $result = $conn->query($sql);
 
+    $i = 1;
     // Kiểm tra và hiển thị kết quả
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
