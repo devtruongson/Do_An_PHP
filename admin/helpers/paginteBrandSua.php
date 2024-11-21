@@ -17,7 +17,7 @@ function paginate($itemsPerPage, $currentPage, $table)
     // Kiểm tra và hiển thị kết quả
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            ?>
+?>
             <tr class="row_data_customer">
                 <td class="py-2 px-4 border text-center" data-name="Id">
                     <?php echo $row["Id"] ?>
@@ -40,13 +40,12 @@ function paginate($itemsPerPage, $currentPage, $table)
                 </td>
                 <td class="py-2 px-4 border text-center">
                     <div class="flex gap-2 items-center">
-                        <button
-                            class="btn_update text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                            </svg></button>
+                        <a href="dashboard.php?route=updateHangSua.php&Id=<?php echo $row['Id']; ?>"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zM16.862 4.487L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                            </svg>
+                        </a>
                         <form action="deleteHangSua.php" method="POST" id="deleteForm">
                             <input type="hidden" value="<?php echo $row["Id"] ?>" name="Id" data-name="Id">
                             <button type="submit" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4
@@ -62,13 +61,11 @@ function paginate($itemsPerPage, $currentPage, $table)
                     </div>
                 </td>
             </tr>
-            <?php
+<?php
         }
-
     } else {
         echo "<p class='text-gray-500'>Không có sản phẩm nào.</p>";
     }
-
 }
 
 

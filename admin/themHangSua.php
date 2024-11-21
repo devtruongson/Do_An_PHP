@@ -54,7 +54,7 @@ include "./auth/checkAuth.php";
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="thumbnail">
-                            Chọn Thumbnail Hãng Sữa
+                            Tải Hình Ảnh Hãng Sữa
                         </label>
                         <input type="text" hidden name="thumbnail" id="save_thumnail" required>
                         <input required id="thumbnail"

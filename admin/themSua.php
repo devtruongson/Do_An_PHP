@@ -30,11 +30,15 @@ include "./auth/checkAuth.php";
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="thumbnail">
-                            Nhập Đường Dẫn Hình Ảnh
+                            Tải Hình Ảnh Cho Sản Phẩm
                         </label>
-                        <input required
+                        <input type="text" hidden name="thumbnail" id="save_thumnail" required>
+                        <input required id="thumbnail"
                             class="w-full px-3 py-2 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
-                            type="url" id="thumbnail" name="thumbnail" placeholder="Nhập hình ảnh... ">
+                            type="file" accept="image/png, image/gif, image/jpeg" id="Email">
+                        <div id="bg-preview"
+                            class="aspect-video max-w-[500px] hidden m-h-[200px] rounded-lg mt-6 bg-no-repeat bg-cover">
+                        </div>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="weight">
@@ -146,6 +150,32 @@ include "./auth/checkAuth.php";
         }
     }
     ?>
+    <script>
+        const inputFileThumbnail = document.querySelector("#thumbnail");
+        const divPreviewThumbnail = document.querySelector("#bg-preview");
+        const inputSendDataThumbnail = document.querySelector("#save_thumnail");
+
+        if (inputFileThumbnail && divPreviewThumbnail) {
+            inputFileThumbnail.addEventListener("change", async (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const formData = new FormData();
+                    formData.append('fileToUpload', file);
+                    try {
+                        const res = await fetch("upload.php", {
+                            body: formData,
+                            method: "post",
+                        }).then(res => res.text());
+                        inputSendDataThumbnail.setAttribute('value', `${window.location.href.split("/admin/")[0]}/admin/uploads/${res}`);
+                        divPreviewThumbnail.style.display = "block";
+                        divPreviewThumbnail.style.backgroundImage = `url(${window.location.href.split("/admin/")[0]}/admin/uploads/${res})`;
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

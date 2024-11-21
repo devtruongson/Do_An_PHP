@@ -51,7 +51,7 @@ include "./auth/checkAuth.php";
                 if ($result->num_rows > 0) {
                     $i = 1;
                     while ($row = $result->fetch_assoc()) {
-                        ?>
+                ?>
                         <tr class="row_data_customer">
                             <td class="py-2 px-4 border text-center" data-name="id">
                                 <?php echo $row["id"] ?>
@@ -79,15 +79,14 @@ include "./auth/checkAuth.php";
                             </td>
                             <td class="py-2 px-4 border text-center">
                                 <div class="flex gap-2 items-center">
-                                    <a href="dashboard.php?route=updateSua.php&id=<?php echo $row['id']; ?>" 
-                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex items-center">
+                                    <a href="dashboard.php?route=updateSua.php&id=<?php echo $row['id']; ?>"
+                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zM16.862 4.487L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                                         </svg>
                                     </a>
 
-
-                                    <form action="delete.php" method="POST" id="deleteForm">
+                                    <form action="deleteSua.php" method="POST" id="deleteForm">
                                         <input type="hidden" value="<?php echo $row["id"] ?>" name="id" data-name="id">
                                         <button type="submit" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4
                                             focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5
@@ -102,7 +101,7 @@ include "./auth/checkAuth.php";
                                 </div>
                             </td>
                         </tr>
-                        <?php
+                <?php
                     }
                 }
                 ?>
