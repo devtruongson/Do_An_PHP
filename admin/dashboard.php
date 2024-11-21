@@ -127,7 +127,7 @@ if (isset($_GET['route'])) {
                 </ul>
             </div>
         </aside>
-
+        
         <div class="sm:ml-64">
             <?php
             $defaultFile = "welcome.php";
@@ -137,7 +137,7 @@ if (isset($_GET['route'])) {
                 if (file_exists($filePath)) {
                     include $filePath;
                 } else {
-                    echo "The requested page does not exist.";
+                    echo "<div class='p-6'>Trang không tồn tại.</div>";
                 }
             } else {
                 include $defaultFile;
