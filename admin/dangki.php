@@ -13,6 +13,8 @@ if (!empty($_POST)) {
 
     $username = $_POST["username"];
     $password = $_POST["password"];
+    $confirmPassword = $_POST["confirm_password"];
+
     $query = "SELECT * FROM admin WHERE username = '$username'";
     $result = mysqli_query($conn, $query);
 
@@ -22,24 +24,33 @@ if (!empty($_POST)) {
             window.location.href = "dangki.php?code=1";  
         </script>
         <?php
+        exit(); 
+    }
+    if ($password !== $confirmPassword) {
+        ?>
+        <script>
+            window.location.href = "dangki.php?code=2"; 
+        </script>
+        <?php
+        exit();
+    }
+    $insertQuery = "INSERT INTO admin (username, password) VALUES ('$username', '$password')";
+    if (mysqli_query($conn, $insertQuery)) {
+        ?>
+        <script>
+            window.location.href = "dangki.php?code=0"; 
+        </script>
+        <?php
     } else {
-        $insertQuery = "INSERT INTO admin (username, password) VALUES ('$username', '$password')";
-        if (mysqli_query($conn, $insertQuery)) {
-            ?>
-            <script>
-                window.location.href = "dangki.php?code=0"; 
-            </script>
-            <?php
-        } else {
-            ?>
-            <script>
-                window.location.href = "dangki.php?code=2";  
-            </script>
-            <?php
-        }
+        ?>
+        <script>
+            window.location.href = "dangki.php?code=2";  
+        </script>
+        <?php
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -71,11 +82,25 @@ if (!empty($_POST)) {
                         </div>
 
                         <div>
-                            <label class="text-gray-800 text-sm mb-2 block">Password</label>
+                            <label class="text-gray-800 text-sm mb-2 block">Mật khẩu</label>
                             <div class="relative flex items-center">
                                 <input name="password" type="password" required
                                     class="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600"
                                     placeholder="Enter password" req />
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
+                                    class="w-[18px] h-[18px] absolute right-4 cursor-pointer" viewBox="0 0 128 128">
+                                    <path
+                                        d="M64 104C22.127 104 1.367 67.496.504 65.943a4 4 0 0 1 0-3.887C1.367 60.504 22.127 24 64 24s62.633 36.504 63.496 38.057a4 4 0 0 1 0 3.887C126.633 67.496 105.873 104 64 104zM8.707 63.994C13.465 71.205 32.146 96 64 96c31.955 0 50.553-24.775 55.293-31.994C114.535 56.795 95.854 32 64 32 32.045 32 13.447 56.775 8.707 63.994zM64 88c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm0-40c-8.822 0-16 7.178-16 16s7.178 16 16 16 16-7.178 16-16-7.178-16-16-16z"
+                                        data-original="#000000"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-gray-800 text-sm mb-2 block">Nhập lại mật khẩu</label>
+                            <div class="relative flex items-center">
+                                <input name="confirm_password" id="confirm_password" type="password" required
+                                    class="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600"
+                                    placeholder="Nhập lại mật khẩu" />
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
                                     class="w-[18px] h-[18px] absolute right-4 cursor-pointer" viewBox="0 0 128 128">
                                     <path
@@ -102,40 +127,35 @@ if (!empty($_POST)) {
     </div>
 
     <script>
-        // Sự kiện ẩn/hiện mật khẩu khi nhấn vào biểu tượng mắt
         document.addEventListener("DOMContentLoaded", () => {
-            const togglePassword = document.querySelector(".relative svg");
-            const passwordField = document.querySelector("input[name='password']");
+            const togglePasswordIcons = document.querySelectorAll(".relative svg");
+            const passwordFields = document.querySelectorAll("input[type='password']");
 
-            togglePassword.addEventListener("click", function () {
-                // Kiểm tra trạng thái hiện tại của trường mật khẩu
-                const isPasswordVisible = passwordField.type === "text";
-                passwordField.type = isPasswordVisible ? "password" : "text";
-
-                // Đổi biểu tượng mắt dựa trên trạng thái
-                const path = togglePassword.querySelector("path");
-                if (isPasswordVisible) {
-                    // Trạng thái ẩn mật khẩu
-                    path.setAttribute(
-                        "d",
-                        "M64 104C22.127 104 1.367 67.496.504 65.943a4 4 0 0 1 0-3.887C1.367 60.504 22.127 24 64 24s62.633 36.504 63.496 38.057a4 4 0 0 1 0 3.887C126.633 67.496 105.873 104 64 104zM8.707 63.994C13.465 71.205 32.146 96 64 96c31.955 0 50.553-24.775 55.293-31.994C114.535 56.795 95.854 32 64 32 32.045 32 13.447 56.775 8.707 63.994zM64 88c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm0-40c-8.822 0-16 7.178-16 16s7.178 16 16 16 16-7.178 16-16-7.178-16-16-16z"
-                    );
-                    togglePassword.setAttribute("fill", "#bbb");
-                    togglePassword.setAttribute("stroke", "#bbb");
-                } else {
-                    // Trạng thái hiện mật khẩu
-                    path.setAttribute(
-                        "d",
-                        "M64 24C22.127 24 1.367 60.504.504 62.057a4 4 0 0 0 0 3.887C1.367 67.496 22.127 104 64 104s62.633-36.504 63.496-38.057a4 4 0 0 0 0-3.887C126.633 60.504 105.873 24 64 24zm0 64c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24z"
-                    );
-                    togglePassword.setAttribute("fill", "#007bff");
-                    togglePassword.setAttribute("stroke", "#007bff");
-                }
+            togglePasswordIcons.forEach((icon, index) => {
+                icon.addEventListener("click", function () {
+                    const passwordField = passwordFields[index];
+                    const isPasswordVisible = passwordField.type === "text";
+                    passwordField.type = isPasswordVisible ? "password" : "text";
+                    const path = icon.querySelector("path");
+                    if (isPasswordVisible) {
+                        path.setAttribute(
+                            "d",
+                            "M64 104C22.127 104 1.367 67.496.504 65.943a4 4 0 0 1 0-3.887C1.367 60.504 22.127 24 64 24s62.633 36.504 63.496 38.057a4 4 0 0 1 0 3.887C126.633 67.496 105.873 104 64 104zM8.707 63.994C13.465 71.205 32.146 96 64 96c31.955 0 50.553-24.775 55.293-31.994C114.535 56.795 95.854 32 64 32 32.045 32 13.447 56.775 8.707 63.994zM64 88c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm0-40c-8.822 0-16 7.178-16 16s7.178 16 16 16 16-7.178 16-16-7.178-16-16-16z"
+                        );
+                        icon.setAttribute("fill", "#bbb");
+                        icon.setAttribute("stroke", "#bbb");
+                    } else {
+                        path.setAttribute(
+                            "d",
+                            "M64 24C22.127 24 1.367 60.504.504 62.057a4 4 0 0 0 0 3.887C1.367 67.496 22.127 104 64 104s62.633-36.504 63.496-38.057a4 4 0 0 0 0-3.887C126.633 60.504 105.873 24 64 24zm0 64c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24z"
+                        );
+                        icon.setAttribute("fill", "#007bff");
+                        icon.setAttribute("stroke", "#007bff");
+                    }
+                });
             });
         });
 
-
-        // Xử lý thông báo đăng ký sau khi form submit
         const code = window.location.search;
         if (code?.split("=") && code?.split("=").length > 0) {
             const codeSucc = code?.split("=")[1];
@@ -157,7 +177,7 @@ if (!empty($_POST)) {
             if (codeSucc == "2") {
                 Swal.fire({
                     title: "Thất Bại",
-                    text: "Có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại!",
+                    text: "Mật khẩu không trùng khớp hoặc có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại!",
                     icon: "info",
                     showConfirmButton: true,
                 }).then(() => {
