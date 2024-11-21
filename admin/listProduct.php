@@ -36,46 +36,54 @@ include "./auth/checkAuth.php";
                 <tr class="bg-gray-200">
                     <th class="py-2 px-4 border">Mã SP</th>
                     <th class="py-2 px-4 border">Tên SP</th>
+                    <th class="py-2 px-4 border">Loại SP</th>
                     <th class="py-2 px-4 border">Mô Tả</th>
                     <th class="py-2 px-4 border">Hình Ảnh</th>
                     <th class="py-2 px-4 border">Trọng Lượng</th>
                     <th class="py-2 px-4 border">Giá</th>
                     <th class="py-2 px-4 border">Trạng Thái</th>
+                    <th class="py-2 px-4 border">Hãng Sữa</th>
                     <th class="py-2 px-4 border">Hành Động</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $query = "select * from Sua";
+                $query = "select *,s.thumbnail, b.Title from Sua s LEFT JOIN brand b on s.brand = b.Id";
                 $result = mysqli_query($conn, $query);
                 if ($result->num_rows > 0) {
                     $i = 1;
                     while ($row = $result->fetch_assoc()) {
                 ?>
                         <tr class="row_data_customer">
-                            <td class="py-2 px-4 border text-center" data-name="id">
+                            <td class="py-2 px-4 border text-center">
                                 <?php echo $row["id"] ?>
                             </td>
-                            <td focus="true" data-name="title" class="py-2 px-4 border text-center">
+                            <td focus="true" class="py-2 px-4 border text-center">
                                 <?php echo $row["title"] ?>
                             </td>
-                            <td data-name="content" class="px-4 py-2 border text-center ">
+                            <td focus="true" class="py-2 px-4 border text-center">
+                                <?php echo $row["type"] ?>
+                            </td>
+                            <td class="px-4 py-2 border text-center ">
                                 <p class="max-h-[200px] overflow-auto max-w-[400px] whitespace-pre">
                                     <?php echo $row["content"] ?>
                                 </p>
                             </td>
-                            <td data-name="thumbnail" class="py-2 px-4 border text-center">
+                            <td class="py-2 px-4 border text-center">
                                 <a href="<?php echo $row["thumbnail"] ?>" target="_blank" rel="noopener noreferrer">Xem Hình
                                     Ảnh</a>
                             </td>
-                            <td data-name="weight" class="py-2 px-4 border text-center">
-                                <?php echo $row["weight"] ?>
+                            <td class="py-2 px-4 border text-center">
+                                <?php echo $row["weight"] ?>g
                             </td>
-                            <td data-name="price" class="py-2 px-4 border text-center">
-                                <?php echo $row["price"] ?>
+                            <td class="py-2 px-4 border text-center">
+                                <?php echo $row["price"] ?>VND
                             </td>
-                            <td data-name="is_active" class="py-2 px-4 border text-center">
+                            <td class="py-2 px-4 border text-center">
                                 <?php echo $row["is_active"] == 0 ? "Ẩn" : "Hiển Thị" ?>
+                            </td>
+                            <td class="py-2 px-4 border text-center">
+                                <?php echo $row["Title"] ?>
                             </td>
                             <td class="py-2 px-4 border text-center">
                                 <div class="flex gap-2 items-center">

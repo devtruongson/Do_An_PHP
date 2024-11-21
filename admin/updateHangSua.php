@@ -16,18 +16,19 @@ if (isset($_GET['Id'])) {
 
 if (!empty($_POST)) {
     try {
-        $sql = "UPDATE Brand SET Title = ?, Address = ?, PhoneNumber = ?, Email = ? WHERE Id = ?";
+        $sql = "UPDATE Brand SET Title = ?, Address = ?, thumbnail = ?, PhoneNumber = ?, Email = ? WHERE Id = ?";
         $stmt = $conn->prepare($sql);
 
         // Lấy giá trị từ form
         $Title = $_POST["Title"];
         $Address = $_POST["Address"];
+        $thumbnail = $_POST["thumbnail"];
         $PhoneNumber = $_POST["PhoneNumber"];
         $Email = $_POST["Email"];
         $Id = $_POST["Id"];
 
         // Liên kết các tham số và thực thi câu lệnh
-        $stmt->bind_param("sssss", $Title, $Address, $PhoneNumber, $Email, $Id);
+        $stmt->bind_param("ssssss", $Title, $Address, $thumbnail, $PhoneNumber, $Email, $Id);
 
         if ($stmt->execute()) {
             header("Location: dashboard.php?route=listHangSua.php&code=0");
@@ -53,13 +54,26 @@ if (!empty($_POST)) {
 <body class="bg-gray-100 py-12">
     <div class="container mx-auto mt-8 max-w-6xl rounded-lg">
         <h2 class="text-3xl font-bold text-center mb-8">Chỉnh sửa thương hiệu</h2>
-        <form method="POST" action="updateSua.php">
+        <form method="POST" action="updateHangSua.php">
             <input type="hidden" name="Id" value="<?php echo $brand['Id']; ?>">
 
             <div class="mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Tên thương hiệu:</label>
                 <input type="text" name="Title" value="<?php echo $brand['Title']; ?>"
                     class="w-full px-4 py-3 border rounded focus:outline-none focus:border-blue-500">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="thumbnail">
+                    Tải Hình Ảnh Cho Sản Phẩm
+                </label>
+                <input type="text" hidden value="<?php echo $brand['thumbnail']; ?>" name="thumbnail" id="save_thumnail" required>
+                <input id="thumbnail"
+                    class="w-full px-3 py-2 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
+                    type="file" accept="image/png, image/gif, image/jpeg" id="Email">
+                <div id="bg-preview"
+                    style="background-image: url('<?php echo $brand['thumbnail']; ?>');"
+                    class="aspect-video max-w-[500px] m-h-[200px] rounded-lg mt-6 bg-no-repeat bg-cover">
+                </div>
             </div>
             <div class="mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Địa chỉ:</label>
@@ -86,5 +100,30 @@ if (!empty($_POST)) {
         </form>
     </div>
 </body>
+<script>
+    const inputFileThumbnail = document.querySelector("#thumbnail");
+    const divPreviewThumbnail = document.querySelector("#bg-preview");
+    const inputSendDataThumbnail = document.querySelector("#save_thumnail");
 
+    if (inputFileThumbnail && divPreviewThumbnail) {
+        inputFileThumbnail.addEventListener("change", async (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const formData = new FormData();
+                formData.append('fileToUpload', file);
+                try {
+                    const res = await fetch("upload.php", {
+                        body: formData,
+                        method: "post",
+                    }).then(res => res.text());
+                    inputSendDataThumbnail.setAttribute('value', `${window.location.href.split("/admin/")[0]}/admin/uploads/${res}`);
+                    divPreviewThumbnail.style.display = "block";
+                    divPreviewThumbnail.style.backgroundImage = `url(${window.location.href.split("/admin/")[0]}/admin/uploads/${res})`;
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        });
+    }
+</script>
 </html>

@@ -1,5 +1,6 @@
 <?php
 include "./auth/checkAuth.php";
+include '../connect.php';
 ?>
 
 <!DOCTYPE html>
@@ -56,18 +57,59 @@ include "./auth/checkAuth.php";
                             class="w-full px-3 py-2 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
                             type="text" id="price" name="price" placeholder="Nhập Đơn Giá Sản Phẩm... ">
                     </div>
-                    <div class="mb-4 col-span-2">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="status">
-                            Trạng Thái
-                        </label>
-                        <select
-                            class="w-full px-3 py-2 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
-                            id="status" name="is_active">
-                            <option>--- Chọ Trạng Thái ---</option>
-                            <option value="true">Hiển Thị</option>
-                            <option value="false">Ẩn</option>
+                    <div class="grid grid-cols-3 gap-3 col-span-2">
+                        <div class="mb-3 ">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="status">
+                                Trạng Thái
+                            </label>
+                            <select
+                                class="w-full px-3 py-2 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
+                                id="status" name="is_active">
+                                <option value="" disabled selected>--- Chọ Trạng Thái ---</option>
+                                <option value="true">Hiển Thị</option>
+                                <option value="false">Ẩn</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 ">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="status">
+                                Loại Sản Phẩm
+                            </label>
+                            <select
+                                class="w-full px-3 py-2 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
+                                id="type" name="type" required>
+                                <option value="" disabled selected >--- Chọ Loại Sản Phẩm ---</option>
+                                <optgroup label="Sữa Động Vật">
+                                    <option value="Sữa Tươi">Sữa Tươi</option>
+                                    <option value="Sữa Đặc Có Đường">Sữa Đặc Có Đường</option>
+                                </optgroup>
+                                <optgroup label="Sữa Thực Vật">
+                                    <option value="Sữa Hạt">Sữa Hạt</option>
+                                    <option value="Sữa Organic">Sữa Organic</option>
+                                </optgroup>
 
-                        </select>
+                            </select>
+                        </div>
+                        <div class="mb-3 ">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="brand">
+                                Hãng sữa
+                            </label>
+                            <select
+                                class="w-full px-3 py-2 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
+                                id="brand" name="brand" required>
+                                <option value="" disabled selected>--- Chọn Hãng Sữa ---</option>
+                                <?php
+                                $sqlBrand = "SELECT Id, Title FROM brand";
+                                $resultBrand = $conn->query($sqlBrand);
+                                if ($resultBrand && $resultBrand->num_rows > 0) {
+                                    while ($row = $resultBrand->fetch_assoc()) {
+                                        echo "<option value='{$row['Id']}'>{$row['Title']}</option>";
+                                    }
+                                } else {
+                                    echo "<option value=''>Không có dữ liệu</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
                     </div>
                     <div class="mb-4 col-span-2">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="content">
@@ -96,26 +138,26 @@ include "./auth/checkAuth.php";
         </div>
     </div>
     <?php
-    include '../connect.php';
     if (!empty($_POST)) {
         try {
-            $sql = "INSERT INTO Sua (title, thumbnail, weight, price, content, is_active) VALUES (?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO Sua (title, thumbnail, weight, price, content, is_active, brand, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
 
             $stmt = $conn->prepare($sql);
 
-            // Get POST data
             $title = $_POST["title"];
             $thumbnail = $_POST["thumbnail"];
             $weight = $_POST["weight"];
             $price = $_POST["price"];
             $content = $_POST["content"];
             $is_active = ($_POST["is_active"] == "true") ? 1 : 0;
+            $brand = $_POST["brand"];
+            $type = $_POST["type"];
 
-            // Bind parameters
-            $stmt->bind_param("ssddsi", $title, $thumbnail, $weight, $price, $content, $is_active);
+            $stmt->bind_param("ssddsiss", $title, $thumbnail, $weight, $price, $content, $is_active, $brand, $type);
 
             if ($stmt->execute()) {
-                ?>
+    ?>
                 <script>
                     Swal.fire({
                         title: "Chúc Mừng",
@@ -128,7 +170,7 @@ include "./auth/checkAuth.php";
                         }
                     });
                 </script>
-                <?php
+            <?php
             } else {
                 echo "Error: " . $stmt->error;
             }
@@ -146,7 +188,7 @@ include "./auth/checkAuth.php";
                     }
                 });
             </script>
-            <?php
+    <?php
         }
     }
     ?>
