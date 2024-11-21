@@ -35,8 +35,8 @@ include "./auth/checkAuth.php";
         <table class="min-w-full bg-white border-collapse border border-gray-300">
             <thead>
                 <tr class="bg-gray-200">
-                    <th class="py-2 px-4 border">Mã SP</th>
-                    <th class="py-2 px-4 border">Tên SP</th>
+                    <th class="py-2 px-4 border">Mã Hãng Sữa</th>
+                    <th class="py-2 px-4 border">Tên Hãng Sữa</th>
                     <th class="py-2 px-4 border">Hình Ảnh</th>
                     <th class="py-2 px-4 border">Địa Chỉ</th>
                     <th class="py-2 px-4 border">Số Điện Thoại</th>
