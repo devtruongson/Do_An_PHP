@@ -62,13 +62,12 @@
 
         <div class="relative z-10">
             <div class="container mx-auto p-4 flex justify-between items-center">
-                <div class="text-lg font-bold">
-                    <a href="index.php">Milk Mart</a>
+                <div class="text-2xl font-extrabold text-white bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500 p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105">
+                    <a href="index.php" class="hover:underline">Milk Mart</a>
                 </div>
                 <div class="flex space-x-4">
-                    <input type="text" class="p-2 rounded-lg" placeholder="Tìm kiếm sản phẩm...">
-                    <button class="bg-blue-800 p-2 rounded-lg">
-                        <a href="admin/index.php" class="text-white">Đăng nhập</a>
+                    <button class="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                        <a href="admin/index.php" class="hover:underline">Đăng nhập</a>
                     </button>
                 </div>
             </div>
@@ -76,7 +75,7 @@
     </header>
     <main class="flex flex-row gap-4 container w-full">
         <aside class="w-1/4 p-4 bg-white rounded-lg shadow-md sticky top-4 ml-0"
-            style="background-image: url('./admin/uploads/Head/Aside1.png'); 
+            style="background-image: url('./admin/uploads/Head/Aside2.png'); 
               background-size: cover; 
               background-position: center; 
               background-repeat: no-repeat;">
@@ -163,7 +162,7 @@
                                             <h3 class="font-semibold text-sm line-clamp-1"><?php echo htmlspecialchars($row["title"]); ?></h3>
                                             <div class="flex justify-between items-center mt-1 text-xs">
                                                 <p class="text-gray-600"><?php echo htmlspecialchars(number_format($row["price"], 2)); ?> VNĐ</p>
-                                                <p class="text-gray-600"><?php echo htmlspecialchars($row["weight"]); ?> kg</p>
+                                                <p class="text-gray-600"><?php echo htmlspecialchars($row["weight"]); ?> g</p>
                                             </div>
                                         </a>
                                 <?php

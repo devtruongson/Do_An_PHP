@@ -56,7 +56,7 @@ if ($result->num_rows > 0) {
                     <p class="text-2xl font-bold text-red-500 mb-4"><?php echo number_format($product['price'], 2); ?> VNĐ
                     </p>
                     <div class="flex items-center mb-4">
-                        <p class="text-gray-600">Weight: <?php echo number_format($product['weight'], 2); ?> kg</p>
+                        <p class="text-gray-600">Weight: <?php echo number_format($product['weight'], 2); ?> g</p>
                         <?php if ($product['is_active']): ?>
                             <span class="ml-4 px-2 py-1 text-xs font-semibold text-white bg-green-500 rounded">Còn Hàng</span>
                         <?php else: ?>
