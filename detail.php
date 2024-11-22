@@ -37,6 +37,9 @@ if ($result->num_rows > 0) {
         </div>
     </header>
     <div class="container mx-auto p-5">
+        <marquee behavior="" direction="">Với Sự Tham Gia Của Các Diễn Viên. Trường Sơn vai Trường Sơn Dev. Tiến Tỉa
+            Trong Vai Tiến Đz. Nô Lệ Trong Vai Lê Hoa
+        </marquee>
         <div class="bg-white shadow-lg rounded-lg p-6">
             <div class="flex flex-wrap md:flex-nowrap">
                 <div class="w-full md:w-1/2 mb-4 md:mb-0">

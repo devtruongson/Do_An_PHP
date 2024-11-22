@@ -10,6 +10,9 @@
 </head>
 
 <body class="bg-gray-100">
+    <marquee behavior="" direction="">Với Sự Tham Gia Của Các Diễn Viên. Trường Sơn vai Trường Sơn Dev. Tiến Tỉa
+        Trong Vai Tiến Đz. Nô Lệ Trong Vai Lê Hoa
+    </marquee>
     <header class="bg-blue-600 text-white p-4">
         <div class="container mx-auto flex justify-between items-center">
             <div class="text-lg font-bold">
