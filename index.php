@@ -7,6 +7,18 @@
     <title>Shop điện tử</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="https://fstack.io.vn/wp-content/uploads/2024/09/cropped-image-192x192.png" sizes="192x192">
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css" />
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <style>
+        .tippy-content {
+            border-radius: 6px;
+            overflow: hidden;
+            padding: 0;
+            background: transparent;
+            color: #333;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100">
@@ -111,7 +123,41 @@
             <p>&copy; 2024 Shop Sữa Trường Sơn. All rights reserved.</p>
         </div>
     </footer>
-
+    <button id="productButton" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        Xem thông tin sản phẩm
+    </button>
+    <div id="productTooltip" class="hidden">
+        <div class="product-card bg-white rounded-lg shadow-lg border border-gray-300 w-96">
+            <div class="product-header bg-red-500 text-[#333] px-4 py-2 rounded-t-lg">
+                <h1 style="font-weight: 700; font-size: 24px; color: #fff;">Màn hình LG 24MR400-B (23.8
+                    inch/FHD/IPS/100Hz/5ms)</h1>
+            </div>
+            <div class="product-content p-4">
+                <div class="product-info mb-4">
+                    <strong>Giá bán:</strong>
+                    <p class="text-2xl font-bold text-red-500 mb-4">$<?php echo number_format($product['price'], 2); ?>
+                </div>
+                <div class="product-info">
+                    <h2>Mô Tả Sản Phẩm</h2>
+                    <p class="text-[#333]" style="max-height: 200px; overflow: auto">
+                        <?php echo nl2br(htmlspecialchars($product['content'])); ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            tippy('#productButton', {
+                content: document.querySelector('#productTooltip').innerHTML,
+                allowHTML: true,
+                interactive: true,
+                theme: 'light',
+                placement: 'right',
+                maxWidth: 400,
+            });
+        });
+    </script>
 </body>
 
 </html>
