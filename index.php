@@ -236,7 +236,7 @@
                     <div class="bg-white rounded-lg shadow-lg border border-gray-300 w-80 p-4">
                         <h1 class="font-bold text-lg mb-2">${title}</h1>
                         <p class="text-red-500 font-bold text-sm mb-2">Giá: ${price} VNĐ</p>
-                        <p class="text-gray-700 text-sm mb-2">Khối lượng: ${weight} kg</p>
+                        <p class="text-gray-700 text-sm mb-2">Khối lượng: ${weight} g</p>
                         <p class="text-gray-600 text-sm overflow-auto max-h-20">${description}</p>
                     </div>
                 `;
