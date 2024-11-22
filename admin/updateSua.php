@@ -61,28 +61,25 @@ if (!empty($_POST)) {
                 <input type="text" name="title" value="<?php echo $product['title']; ?>"
                     class="w-full px-4 py-3 border rounded focus:outline-none focus:border-blue-500">
             </div>
-            <div class="mb-3 ">
+            <div class="mb-3">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="status">
                     Loại Sản Phẩm
                 </label>
                 <select
                     class="w-full px-3 py-2 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
                     id="type" name="type" required>
-                    <option value="" disabled <?php echo empty($product['type']) ? 'selected' : ''; ?>>--- Chọn Loại Sản
-                        Phẩm ---</option>
-                    <?php
-                    if ($resultTypes && $resultTypes->num_rows > 0) {
-                        while ($row = $resultTypes->fetch_assoc()) {
-                            $selected = ($product['type'] == $row['type']) ? 'selected' : '';
-                            echo "<option value='{$row['type']}' $selected>{$row['type']}</option>";
-                        }
-                    } else {
-                        echo "<option value=''>Không có dữ liệu</option>";
-                    }
-                    ?>
+                    <option value="" disabled <?php echo empty($product['type']) ? 'selected' : ''; ?>>--- Chọn Loại Sản Phẩm ---</option>
+                    <optgroup label="Sữa Động Vật">
+                        <option value="Sữa Tươi" <?php echo $product['type'] == 'Sữa Tươi' ? 'selected' : ''; ?>>Sữa Tươi</option>
+                        <option value="Sữa Đặc Có Đường" <?php echo $product['type'] == 'Sữa Đặc Có Đường' ? 'selected' : ''; ?>>Sữa Đặc Có Đường</option>
+                    </optgroup>
+                    <optgroup label="Sữa Thực Vật">
+                        <option value="Sữa Hạt" <?php echo $product['type'] == 'Sữa Hạt' ? 'selected' : ''; ?>>Sữa Hạt</option>
+                        <option value="Sữa Organic" <?php echo $product['type'] == 'Sữa Organic' ? 'selected' : ''; ?>>Sữa Organic</option>
+                    </optgroup>
                 </select>
-
             </div>
+
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="thumbnail">
                     Tải Hình Ảnh Cho Sản Phẩm
