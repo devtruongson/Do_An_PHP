@@ -35,18 +35,12 @@ if ($result->num_rows > 0) {
             <div class="text-lg font-bold">
                 <a href="index.php">Shop Sữa Trường Sơn</a>
             </div>
-            <div class="flex space-x-4">
-                <input type="text" class="p-2 rounded-lg" placeholder="Tìm kiếm sản phẩm...">
-                <button class="bg-blue-800 p-2 rounded-lg">
-                    <a href="admin/index.php">Đăng nhập</a>
-                </button>
-            </div>
         </div>
     </header>
     <div class="container mx-auto p-5">
-        <marquee behavior="" direction="">Với Sự Tham Gia Của Các Diễn Viên. Trường Sơn vai Trường Sơn Dev. Tiến Tỉa
-            Trong Vai Tiến Đz. Nô Lệ Trong Vai Lê Hoa
-        </marquee>
+        <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+            <a href="index.php">Quay Lại</a>
+        </button>
         <div class="bg-white shadow-lg rounded-lg p-6">
             <div class="flex flex-wrap md:flex-nowrap">
                 <div class="w-full md:w-1/2 mb-4 md:mb-0">
@@ -59,16 +53,14 @@ if ($result->num_rows > 0) {
                     <h1 class="text-3xl font-semibold text-gray-900 mb-4">
                         <?php echo htmlspecialchars($product['title']); ?>
                     </h1>
-                    <p class="text-2xl font-bold text-red-500 mb-4">$<?php echo number_format($product['price'], 2); ?>
+                    <p class="text-2xl font-bold text-red-500 mb-4"><?php echo number_format($product['price'], 2); ?> VNĐ
                     </p>
                     <div class="flex items-center mb-4">
                         <p class="text-gray-600">Weight: <?php echo number_format($product['weight'], 2); ?> kg</p>
                         <?php if ($product['is_active']): ?>
-                            <span class="ml-4 px-2 py-1 text-xs font-semibold text-white bg-green-500 rounded">In
-                                Stock</span>
+                            <span class="ml-4 px-2 py-1 text-xs font-semibold text-white bg-green-500 rounded">Còn Hàng</span>
                         <?php else: ?>
-                            <span class="ml-4 px-2 py-1 text-xs font-semibold text-white bg-red-500 rounded">Out of
-                                Stock</span>
+                            <span class="ml-4 px-2 py-1 text-xs font-semibold text-white bg-red-500 rounded">Hết Hàng</span>
                         <?php endif; ?>
                     </div>
                     <div>
@@ -200,6 +192,7 @@ if ($result->num_rows > 0) {
         })
 
         const cartRenderItem = document.querySelector("#render_cart_body");
+
         function handleRenderItemProduct() {
             if (!cartRenderItem) return;
             const html = JSON.parse(localStorage.getItem("carts")).map(product => {
