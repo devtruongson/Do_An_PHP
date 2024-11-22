@@ -53,32 +53,58 @@
             </div>
         </section>
         <section>
-            <h2 class="text-2xl font-semibold mb-4">Sản phẩm nổi bật</h2>
-            <div class="grid grid-cols-3 gap-4">
-                <?php
-                include './connect.php';
-                $query = "select * from Sua";
-                $result = mysqli_query($conn, $query);
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        ?>
-                        <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg">
-                            <img src="<?php echo $row["thumbnail"] ?>" alt="Product"
-                                class="w-full h-48 object-cover mb-4 rounded-lg">
-                            <h3 class="font-semibold line-clamp-1"><?php echo $row["title"] ?></h3>
-                            <div class="flex justify-between items-center">
-                                <p class="text-gray-600"><?php echo $row["price"] ?></p>
-                                <p class="text-gray-600"><?php echo $row["weight"] ?></p>
-                            </div>
-                            <a href="detail.php?sp=<?php echo $row["id"] ?>"
-                                class="bg-blue-600 text-white p-2 rounded-lg mt-4 w-full block text-center">Xem Chi Tiết</a>
+            <h2 class="text-2xl font-semibold mb-4">Sản phẩm theo loại</h2>
+            <?php
+            include './connect.php';
+
+            // Query lấy tất cả các loại sản phẩm từ bảng
+            $typeQuery = "SELECT DISTINCT type FROM sua WHERE is_active = 1";
+            $typeResult = mysqli_query($conn, $typeQuery);
+
+            if ($typeResult->num_rows > 0) {
+                while ($typeRow = $typeResult->fetch_assoc()) {
+                    $type = $typeRow['type'];
+            ?>
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold mb-3"><?php echo htmlspecialchars($type); ?></h3>
+                        <div class="grid grid-cols-5 gap-4">
+                            <?php
+                            // Query lấy các sản phẩm thuộc loại hiện tại
+                            $productQuery = "SELECT * FROM sua WHERE type = ? AND is_active = 1";
+                            $stmt = $conn->prepare($productQuery);
+                            $stmt->bind_param("s", $type);
+                            $stmt->execute();
+                            $productResult = $stmt->get_result();
+
+                            if ($productResult->num_rows > 0) {
+                                while ($row = $productResult->fetch_assoc()) {
+                            ?>
+                                    <a href="detail.php?sp=<?php echo htmlspecialchars($row["id"]); ?>"
+                                        class="block bg-white p-2 rounded-lg shadow-md hover:shadow-lg transition transform hover:scale-105">
+                                        <img src="<?php echo htmlspecialchars($row["thumbnail"]); ?>" alt="Product"
+                                            class="w-full h-32 object-cover mb-2 rounded-lg">
+                                        <h3 class="font-semibold text-sm line-clamp-1"><?php echo htmlspecialchars($row["title"]); ?></h3>
+                                        <div class="flex justify-between items-center mt-1 text-xs">
+                                            <p class="text-gray-600"><?php echo htmlspecialchars(number_format($row["price"], 2)); ?> VNĐ</p>
+                                            <p class="text-gray-600"><?php echo htmlspecialchars($row["weight"]); ?> kg</p>
+                                        </div>
+                                    </a>
+                            <?php
+                                }
+                            } else {
+                                echo "<p class='text-gray-500'>Không có sản phẩm nào thuộc loại này.</p>";
+                            }
+                            ?>
                         </div>
-                        <?php
-                    }
+                    </div>
+            <?php
                 }
-                ?>
-            </div>
+            } else {
+                echo "<p class='text-gray-500'>Không tìm thấy loại sản phẩm nào.</p>";
+            }
+            ?>
         </section>
+
     </main>
     <footer class="bg-blue-600 text-white p-4 mt-8">
         <div class="container mx-auto text-center">
