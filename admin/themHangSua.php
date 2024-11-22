@@ -17,7 +17,7 @@ include "./auth/checkAuth.php";
 <body class="bg-gray-100 py-12 flex justify-center items-center px-4 flex-col">
     <div class='h-[100vh]'>
         <div class="w-full bg-white p-8 rounded-lg shadow-lg h-full">
-            <h2 class="text-2xl font-bold text-center mb-6">Thêm Mới Hãng Sữa - Cửa Hàng Sữa Đức Thành</h2>
+            <h2 class="text-2xl font-bold text-center mb-6">Thêm Mới Hãng Sữa</h2>
             <form method="POST" action="">
                 <div class="grid grid-cols-2 gap-4">
                     <div class="mb-4">
