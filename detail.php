@@ -19,7 +19,7 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $product['title']; ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gray-100">
@@ -64,21 +64,34 @@ if ($result->num_rows > 0) {
                                 Stock</span>
                         <?php endif; ?>
                     </div>
-                    <div class="text-gray-700 mb-6">
-                        <?php echo nl2br(htmlspecialchars($product['content'])); ?>
+                    <div>
+                        <button type="button" id="btn_add_to_cart"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Default</button>
                     </div>
-                    <button class="w-full py-3 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-lg">
-                        Add to Cart
-                    </button>
                 </div>
+            </div>
+            <div class="text-gray-700 mb-6">
+                <?php echo nl2br(htmlspecialchars($product['content'])); ?>
             </div>
         </div>
     </div>
+
+
     <footer class="bg-blue-600 text-white p-4 mt-8">
         <div class="container mx-auto text-center">
             <p>&copy; 2024 Shop Sữa Trường Sơn. All rights reserved.</p>
         </div>
     </footer>
+
+    <div class="fixed top-0 left-0 right-0 bottom-0 w-[100vw] h-[100vh] bg-[rgba(0,0,0,0.6)]"
+        style="background: rgba(0,0,0,0.6);">
+        <div class="absolute w-[70%] top-0 right-0 bottom-0 bg-[#fff] h-[100%] py-10 px-12">
+            <h2 class="text-[26px] font-bold text-[#ee4d2d]">Giỏ Hàng Của Bạn</h2>
+            <div class="mt-6">
+
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
