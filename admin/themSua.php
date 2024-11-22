@@ -16,7 +16,7 @@ include '../connect.php';
 </head>
 
 <body class="bg-gray-100 py-12 flex justify-center items-center px-4 flex-col">
-    <div class='h-[100vh]'>
+    <div class=''>
         <div class="w-full bg-white p-8 rounded-lg shadow-lg h-full">
             <h2 class="text-2xl font-bold text-center mb-6">Thêm Sản Phẩm - Quản Lý Sữa</h2>
             <form method="POST" action="">
@@ -77,7 +77,7 @@ include '../connect.php';
                             <select
                                 class="w-full px-3 py-2 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
                                 id="type" name="type" required>
-                                <option value="" disabled selected >--- Chọ Loại Sản Phẩm ---</option>
+                                <option value="" disabled selected>--- Chọ Loại Sản Phẩm ---</option>
                                 <optgroup label="Sữa Động Vật">
                                     <option value="Sữa Tươi">Sữa Tươi</option>
                                     <option value="Sữa Đặc Có Đường">Sữa Đặc Có Đường</option>
@@ -157,7 +157,7 @@ include '../connect.php';
             $stmt->bind_param("ssddsiss", $title, $thumbnail, $weight, $price, $content, $is_active, $brand, $type);
 
             if ($stmt->execute()) {
-    ?>
+                ?>
                 <script>
                     Swal.fire({
                         title: "Chúc Mừng",
@@ -170,7 +170,7 @@ include '../connect.php';
                         }
                     });
                 </script>
-            <?php
+                <?php
             } else {
                 echo "Error: " . $stmt->error;
             }
@@ -188,7 +188,7 @@ include '../connect.php';
                     }
                 });
             </script>
-    <?php
+            <?php
         }
     }
     ?>

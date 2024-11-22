@@ -73,8 +73,7 @@ if (!empty($_POST)) {
             </div>
             <div class="mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Giới tính:</label>
-                <select name="Gender"
-                    class="w-full px-4 py-3 border rounded focus:outline-none focus:border-blue-500">
+                <select name="Gender" class="w-full px-4 py-3 border rounded focus:outline-none focus:border-blue-500">
                     <option value="Nam" <?php echo $customer['Gender'] == 1 ? 'selected' : ''; ?>>Nam</option>
                     <option value="Nữ" <?php echo $customer['Gender'] == 0 ? 'selected' : ''; ?>>Nữ</option>
                 </select>

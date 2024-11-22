@@ -68,7 +68,8 @@ if (!empty($_POST)) {
                 <select
                     class="w-full px-3 py-2 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
                     id="type" name="type" required>
-                    <option value="" disabled <?php echo empty($product['type']) ? 'selected' : ''; ?>>--- Chọn Loại Sản Phẩm ---</option>
+                    <option value="" disabled <?php echo empty($product['type']) ? 'selected' : ''; ?>>--- Chọn Loại Sản
+                        Phẩm ---</option>
                     <?php
                     if ($resultTypes && $resultTypes->num_rows > 0) {
                         while ($row = $resultTypes->fetch_assoc()) {
@@ -86,12 +87,12 @@ if (!empty($_POST)) {
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="thumbnail">
                     Tải Hình Ảnh Cho Sản Phẩm
                 </label>
-                <input type="text" hidden value="<?php echo $product['thumbnail']; ?>" name="thumbnail" id="save_thumnail" required>
+                <input type="text" hidden value="<?php echo $product['thumbnail']; ?>" name="thumbnail"
+                    id="save_thumnail" required>
                 <input id="thumbnail"
                     class="w-full px-3 py-2 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
                     type="file" accept="image/png, image/gif, image/jpeg" id="Email">
-                <div id="bg-preview"
-                    style="background-image: url('<?php echo $product['thumbnail']; ?>');"
+                <div id="bg-preview" style="background-image: url('<?php echo $product['thumbnail']; ?>');"
                     class="aspect-video max-w-[500px] m-h-[200px] rounded-lg mt-6 bg-no-repeat bg-cover">
                 </div>
             </div>
@@ -125,7 +126,8 @@ if (!empty($_POST)) {
                 <select
                     class="w-full px-3 py-2 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500"
                     id="brand" name="brand" required>
-                    <option value="" disabled <?php echo empty($product['brand']) ? 'selected' : ''; ?>>--- Chọn Hãng Sữa ---</option>
+                    <option value="" disabled <?php echo empty($product['brand']) ? 'selected' : ''; ?>>--- Chọn Hãng
+                        Sữa ---</option>
                     <?php
                     $sqlBrand = "SELECT Id, Title FROM brand";
                     $resultBrand = $conn->query($sqlBrand);
@@ -142,7 +144,7 @@ if (!empty($_POST)) {
                 </select>
 
             </div>
-            <div class="flex justify-end gap-4">
+            <div class="flex justify-end gap-4 pb-10">
                 <button type="submit"
                     class="bg-blue-500 text-white px-6 py-3 rounded shadow hover:bg-blue-600 transition duration-300">
                     Cập nhật

@@ -11,40 +11,48 @@ function paginate($itemsPerPage, $currentPage, $table)
     $startPosition = ($currentPage - 1) * $itemsPerPage;
 
     // Truy vấn SQL lấy dữ liệu với LIMIT và OFFSET
-    $sql = "SELECT * FROM $table LIMIT $itemsPerPage OFFSET $startPosition";
+
+    $sql = "SELECT s.*, s.thumbnail, b.Title FROM Sua s LEFT JOIN brand b ON s.brand = b.Id LIMIT $itemsPerPage OFFSET $startPosition; ";
     $result = $conn->query($sql);
 
-    $i = 1;
     // Kiểm tra và hiển thị kết quả
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             ?>
-            <tr class="row_data_customer <?= ($i % 2 != 0) ? 'bg-[#fcddbc] text-[#333] rounded-lg text-[#fff]' : '' ?>">
-                <td class="py-2 px-4 border text-center" data-name="Id">
-                    <?php echo $row["Id"] ?>
+            <tr class="row_data_customer">
+                <td class="py-2 px-4 border text-center">
+                    <?php echo $row["id"] ?>
                 </td>
-                <td focus="true" data-name="FullName" class="py-2 px-4 border text-center">
-                    <?php echo $row["FullName"] ?>
+                <td focus="true" class="py-2 px-4 border text-center">
+                    <?php echo $row["title"] ?>
                 </td>
-                <td data-name="Address" class="px-4 py-2 border text-center ">
-                    <?php echo $row["Address"] ?>
+                <td focus="true" class="py-2 px-4 border text-center">
+                    <?php echo $row["type"] ?>
                 </td>
-                <td data-name="PhoneNumber" class="py-2 px-4 border text-center">
-                    <?php echo $row["PhoneNumber"] ?>
+                <td class="px-4 py-2 border text-center ">
+                    <p class="max-h-[200px] overflow-auto max-w-[400px] whitespace-pre">
+                        <?php echo $row["content"] ?>
+                    </p>
                 </td>
-                <td data-name="Gender" class="py-2 px-4 border text-center">
-                    <p class="opacity-0 h-[0px]"><?php echo $row["Gender"] ?></p>
-                    <?php if ($row["Gender"] == '0'): ?>
-                        <img class="block mx-auto w-[50px] h-[50px] object-cover"
-                            src="https://cdn-icons-png.flaticon.com/512/6833/6833591.png" alt="">
-                    <?php else: ?>
-                        <img class="block mx-auto w-[50px] h-[50px] object-cover"
-                            src="https://cdn-icons-png.flaticon.com/512/1724/1724930.png" alt="">
-                    <?php endif; ?>
+                <td class="py-2 px-4 border text-center">
+                    <a href="<?php echo $row["thumbnail"] ?>" target="_blank" rel="noopener noreferrer">Xem Hình
+                        Ảnh</a>
+                </td>
+                <td class="py-2 px-4 border text-center">
+                    <?php echo $row["weight"] ?>g
+                </td>
+                <td class="py-2 px-4 border text-center">
+                    <?php echo $row["price"] ?>VND
+                </td>
+                <td class="py-2 px-4 border text-center">
+                    <?php echo $row["is_active"] == 0 ? "Ẩn" : "Hiển Thị" ?>
+                </td>
+                <td class="py-2 px-4 border text-center">
+                    <?php echo $row["Title"] ?>
                 </td>
                 <td class="py-2 px-4 border text-center">
                     <div class="flex gap-2 items-center">
-                        <a href="dashboard.php?route=updateKhachHang.php&Id=<?php echo $row['Id']; ?>"
+                        <a href="dashboard.php?route=updateSua.php&id=<?php echo $row['id']; ?>"
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-5 h-5 mr-2">
@@ -52,10 +60,10 @@ function paginate($itemsPerPage, $currentPage, $table)
                                     d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zM16.862 4.487L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                             </svg>
                         </a>
-                        <form action="deleteKhachHang.php" method="POST" class="form-delete-submit"
-                            data-id="<?php echo $row["Id"] ?>">
-                            <input type="hidden" value="<?php echo $row["Id"] ?>" name="Id" data-name="Id">
-                            <button type="button" onclick="ConfirmDelete('<?php echo $row["Id"] ?>')" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4
+
+                        <form action="deleteSua.php" method="POST" class="form-delete-submit" data-id="<?php echo $row["id"] ?>">
+                            <input type="hidden" value="<?php echo $row["id"] ?>" name="id" data-name="id">
+                            <button type="button" onclick="ConfirmDelete('<?php echo $row["id"] ?>')" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4
                                             focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5
                                             dark:focus:ring-yellow-900">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -69,7 +77,6 @@ function paginate($itemsPerPage, $currentPage, $table)
                 </td>
             </tr>
             <?php
-            $i++;
         }
     } else {
         echo "<p class='text-gray-500'>Không có sản phẩm nào.</p>";
@@ -97,7 +104,7 @@ function paginateBtnNavigate($itemsPerPage, $currentPage, $table)
 
     // Quay về (nếu không phải trang đầu tiên)
     if ($currentPage > 1) {
-        echo "<li><a href='dashboard.php?route=listKhachHang.php&page=" . ($currentPage - 1) . "' class='px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600'>Quay về</a></li>";
+        echo "<li><a href='dashboard.php?route=listProduct.php&page=" . ($currentPage - 1) . "' class='px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600'>Quay về</a></li>";
     } else {
         echo "<li><span class='px-4 py-2 bg-gray-300 text-gray-500 rounded-md'>Quay về</span></li>";
     }
@@ -107,13 +114,13 @@ function paginateBtnNavigate($itemsPerPage, $currentPage, $table)
         if ($i == $currentPage) {
             echo "<li><span class='px-4 py-2 bg-blue-500 text-white rounded-md'>$i</span></li>";
         } else {
-            echo "<li><a href='dashboard.php?route=listKhachHang.php&page=$i' class='px-4 py-2 bg-white text-blue-500 rounded-md hover:bg-gray-100'>$i</a></li>";
+            echo "<li><a href='dashboard.php?route=listProduct.php&page=$i' class='px-4 py-2 bg-white text-blue-500 rounded-md hover:bg-gray-100'>$i</a></li>";
         }
     }
 
     // Tiếp tục (nếu không phải trang cuối cùng)
     if ($currentPage < $totalPages) {
-        echo "<li><a href='dashboard.php?route=listKhachHang.php&page=" . ($currentPage + 1) . "' class='px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600'>Tiếp tục</a></li>";
+        echo "<li><a href='dashboard.php?route=listProduct.php&page=" . ($currentPage + 1) . "' class='px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600'>Tiếp tục</a></li>";
     } else {
         echo "<li><span class='px-4 py-2 bg-gray-300 text-gray-500 rounded-md'>Tiếp tục</span></li>";
     }
