@@ -233,11 +233,11 @@
                 const weight = reference.getAttribute('data-weight');
                 const description = reference.getAttribute('data-description');
                 return `
-                    <div class="bg-white rounded-lg shadow-lg border border-gray-300 w-80 p-4">
-                        <h1 class="font-bold text-lg mb-2">${title}</h1>
-                        <p class="text-red-500 font-bold text-sm mb-2">Giá: ${price} VNĐ</p>
-                        <p class="text-gray-700 text-sm mb-2">Khối lượng: ${weight} g</p>
-                        <p class="text-gray-600 text-sm overflow-auto max-h-20">${description}</p>
+                    <div class="bg-gradient-to-b from-white to-gray-50 rounded-xl shadow-lg border border-gray-200 w-80 p-6 transition duration-300 hover:shadow-xl transform hover:scale-105">
+                        <h1 class="font-extrabold text-xl text-gray-800 mb-3 truncate">${title}</h1>
+                        <p class="text-red-600 font-bold text-base mb-3">Giá: ${price} VNĐ</p>
+                        <p class="text-gray-800 text-sm mb-3">Khối lượng: ${weight} g</p>
+                        <p class="text-gray-600 text-sm overflow-auto max-h-24 leading-relaxed">${description}</p>
                     </div>
                 `;
             },
